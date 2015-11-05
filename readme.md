@@ -1,3 +1,11 @@
+Swiss-Solar-Log.ch version of the great EmonCMS 9.x.
+
+Additional features:
+- Floating dashboard edit bar (movable, to move where you need it), moved dashboard edit icon to the left
+- Boostrap design enhancements to better deal with many dashboard quick access entries, seperate actions from quick access and aligning them better to the available screen.
+- Added possibility to store PVOutput.org API and SID to User DB and also store Feedid's for sending feed data to PVoutput.org (Consumption and Generation)
+- Simple Perl script to read out the feed values and send them to PVOutput.org using the stored API and SID and FeedIds.
+
 # Emoncms 9
 
 Emoncms is an open-source web application for processing, logging and visualising energy, temperature and other environmental data and is part of the [OpenEnergyMonitor project](http://openenergymonitor.org/emon).
