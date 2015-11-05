@@ -45,9 +45,9 @@ http://openenergymonitor.org
     background-color:#ddd;
     height:27px;
 }
-#topspacer {
-    padding-top: 42px;
-}
+// #topspacer {
+//    padding-top: 42px;
+// }
 
 div#account {
     width:230px;

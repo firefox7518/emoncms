@@ -1,5 +1,21 @@
   var widgets = {
-
+	
+	"Normal-Text": 
+    {
+      "offsetx":-50,"offsety":-30,"width":100,"height":60,
+      "menu":"Text",
+      "options":["html"],"optionstype":["html"],"optionsname":["html"],"optionshint":["Html code to show"],"html":
+      "Some text"
+    },
+  
+    "Normal-Text-bold": 
+    {
+      "offsetx":-50,"offsety":-30,"width":100,"height":60,
+      "menu":"Text",
+      "options":["html"],"optionstype":["html"],"optionsname":["html"],"optionshint":["Html code to show"],"html":
+      "Some text"
+    },
+  
     "paragraph": 
     {
       "offsetx":-50,"offsety":-30,"width":100,"height":60,

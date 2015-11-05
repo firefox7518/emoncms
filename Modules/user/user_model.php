@@ -7,6 +7,11 @@
    Emoncms - open source energy visualisation
    Part of the OpenEnergyMonitor project:
    http://openenergymonitor.org
+   
+   Changes done to schema to add multiple fields for PVoutput reporting of generation and a consumption feed and 
+   to store Enecsys 1st and 2nd Gen Solar gateway serial numbers.
+   Added by Andreas Messerli - Swiss-Solar-log.ch - firefox7518@gmail.com
+   
 */
 
 // no direct access
@@ -537,7 +542,7 @@ class User
     public function get($userid)
     {
         $userid = intval($userid);
-        $result = $this->mysqli->query("SELECT id,username,email,gravatar,name,location,timezone,language,bio,apikey_write,apikey_read FROM users WHERE id=$userid");
+        $result = $this->mysqli->query("SELECT id,username,email,gravatar,name,location,timezone,language,bio,apikey_write,apikey_read,pvoutputapikey,pvoutputsid,generationfeed,consumptionfeed,enecsysgw1,enecsysgw2 FROM users WHERE id=$userid");
         $data = $result->fetch_object();
         return $data;
     }
@@ -552,9 +557,15 @@ class User
         $timezone = preg_replace('/[^\w-.\\/_]/','',$data->timezone);
         $bio = preg_replace('/[^\p{N}\p{L}_\s-.]/u','',$data->bio);
         $language = preg_replace('/[^\w\s-.]/','',$data->language); 
+		$pvoutputapikey = preg_replace('/[^\p{N}\p{L}_\s-.]/u','',$data->pvoutputapikey);
+		$pvoutputsid = preg_replace('/[^\p{N}\p{L}_\s-.]/u','',$data->pvoutputsid);
+		$generationfeed = preg_replace('/[^\p{N}\p{L}_\s-.]/u','',$data->generationfeed);
+		$consumptionfeed = preg_replace('/[^\p{N}\p{L}_\s-.]/u','',$data->consumptionfeed);
+		$enecsysgw1 = preg_replace('/[^\p{N}\p{L}_\s-.]/u','',$data->enecsysgw1);
+		$enecsysgw2 = preg_replace('/[^\p{N}\p{L}_\s-.]/u','',$data->enecsysgw2);
         $_SESSION['lang'] = $language;
 
-        $result = $this->mysqli->query("UPDATE users SET gravatar = '$gravatar', name = '$name', location = '$location', timezone = '$timezone', language = '$language', bio = '$bio' WHERE id='$userid'");
+        $result = $this->mysqli->query("UPDATE users SET gravatar = '$gravatar', name = '$name', location = '$location', timezone = '$timezone', language = '$language', bio = '$bio', pvoutputapikey = '$pvoutputapikey', pvoutputsid = '$pvoutputsid', generationfeed = '$generationfeed', consumptionfeed = '$consumptionfeed', enecsysgw1 = '$enecsysgw1', enecsysgw2 = '$enecsysgw2'  WHERE id='$userid'");
     }
 
     // Generates a new random read apikey

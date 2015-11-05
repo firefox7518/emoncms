@@ -8,6 +8,11 @@
     Emoncms - open source energy visualisation
     Part of the OpenEnergyMonitor project:
     http://openenergymonitor.org
+	
+	Changes done to schema to add multiple fields for PVoutput reporting of generation and a consumption feed and 
+	to store Enecsys 1st and 2nd Gen Solar gateway serial numbers.
+	Added by Andreas Messerli - Swiss-Solar-log.ch - firefox7518@gmail.com
+	
 */
 
 // no direct access
@@ -137,7 +142,13 @@ function languagecode_to_name($langs) {
         'location':{'title':"<?php echo _('Location'); ?>", 'type':'text'},
         'timezone':{'title':"<?php echo _('Timezone'); ?>", 'type':'timezone'},
         'language':{'title':"<?php echo _('Language'); ?>", 'type':'language', 'options':lang, 'label':lang_name},
-        'bio':{'title':"<?php echo _('Bio'); ?>", 'type':'text'}
+        'bio':{'title':"<?php echo _('Bio'); ?>", 'type':'text'},
+		'pvoutputapikey':{'title':"<?php echo _('PVOutput API Key'); ?>", 'type':'text'},
+		'pvoutputsid':{'title':"<?php echo _('PVOutput Sytem ID'); ?>", 'type':'text'},
+		'generationfeed':{'title':"<?php echo _('Feed ID for Generation feed'); ?>", 'type':'text'},
+		'consumptionfeed':{'title':"<?php echo _('Feed ID for Consumption feed'); ?>", 'type':'text'},
+		'enecsysgw1':{'title':"<?php echo _('Enecsys 1st Gen Gateway Serial ID'); ?>", 'type':'text'},
+		'enecsysgw2':{'title':"<?php echo _('Enecsys 2nd Gen Gateway Serial ID'); ?>", 'type':'text'},
     }
     
     $.ajax({ url: path+"user/gettimezones.json", dataType: 'json', async: true, success: function(result) {

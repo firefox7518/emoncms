@@ -1,3 +1,25 @@
+.pvvertical {
+  background: url("http://swiss-solar-log.ch:85/pv-panel-v2.png");
+  width:118px;
+  height:224px;
+  margin: 0px;
+  padding: 0px;
+  background-repeat: no-repeat;
+  background-size:cover;
+  background-position:center;
+}
+
+.pvhorizontal {
+  background: url("http://swiss-solar-log.ch:85/pv-panel-h2.png");
+  width:224px;
+  height:118px;
+  margin: 0px;
+  padding: 0px;
+  background-repeat: no-repeat;
+  background-size:cover;
+  background-position:center;
+}
+
 .Container-White {
   background: none repeat scroll 0 0 #FFFFFF;
   border: 1px solid #E5E5E5;
@@ -40,6 +62,14 @@
 .feedvalue {
   font-weight:bold;
   font-size:24px;
+  padding-top:20px;
+  text-align:center;
+  color:#4444CC;
+}
+
+.feedvaluesmall {
+  font-weight:bold;
+  font-size:14px;
   padding-top:20px;
   text-align:center;
   color:#4444CC;

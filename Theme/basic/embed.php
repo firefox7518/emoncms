@@ -19,6 +19,7 @@
 
         <script type="text/javascript" src="<?php echo $path; ?>Lib/jquery-1.11.3.min.js"></script>
         <link href="<?php echo $path; ?>Lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<link href="<?php echo $path; ?>Lib/bootstrap/css/bootstrap.custom.css" rel="stylesheet">
     </head>
     <body>
         <div>

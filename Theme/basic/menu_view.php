@@ -26,7 +26,7 @@
                 $i = 0;
                 $subactive = false;
                 if (isset($item['dropdown']) && count($item['dropdown']) > 0) {
-                    usort($item['dropdown'], "menu_sort");
+                    //usort($item['dropdown'], "menu_sort"); //TODO: activate after APPs module supports it
                     $outdrop="";
                     foreach ($item['dropdown'] as $dropdownitem) {
                         if (!isset($dropdownitem['session']) || (isset($dropdownitem['session']) && $session[$dropdownitem['session']]==1)) {
@@ -63,7 +63,7 @@
         $published = false;
         if (isset($item['name'])) $name = $item['name'];
         if (isset($item['desc'])) $desc = $item['desc'];
-        if (isset($item['icon'])) $icon = $item['icon'];
+		if (isset($item['icon'])) $icon = $item['icon'];
         if (isset($item['published'])) $published = $item['published'];
 
         $title = ($desc ? $desc : $name);
@@ -104,10 +104,7 @@
         $item['class'] = 'menu-dashboard';
         echo drawItem($item);
     }
-    foreach ($menu['left'] as $item) {
-        $item['class'] = 'menu-left';
-        echo drawItem($item);
-    }
+    
 ?>
 </ul>
 <ul class="nav pull-right">
@@ -132,7 +129,12 @@
         echo drawItem($setup);
     }
 
-    foreach ($menu['right'] as $item) {
+    foreach ($menu['left'] as $item) {
+        $item['class'] = 'menu-right';
+        echo drawItem($item);
+    }
+	
+	foreach ($menu['right'] as $item) {
         $item['class'] = 'menu-right';
         echo drawItem($item);
     }

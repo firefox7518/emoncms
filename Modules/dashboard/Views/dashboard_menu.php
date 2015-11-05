@@ -28,5 +28,5 @@
     //}
 
     if ($result) {
-        echo "<div class='btn-toolbar' style='padding:2px; margin: 0;' align='right'><div class='btn-group'>".$result."</div></div>";   
+        echo "<div class='btn-toolbar' style='padding:2px; margin: 0;' align='left'><div class='btn-group'>".$result."</div></div>";   
     }

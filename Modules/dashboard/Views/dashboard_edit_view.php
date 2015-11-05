@@ -22,7 +22,7 @@ if (!$dashboard['height']) $dashboard['height'] = 400;
     <script type="text/javascript" src="<?php echo $path; ?>Modules/dashboard/Views/js/render.js"></script>
 
     <script type="text/javascript" src="<?php echo $path; ?>Modules/feed/feed.js"></script>
-
+	<script type="text/javascript" src="<?php echo $path; ?>/byrei-dyndiv_1.0rc1.js"></script>
     <?php require_once "Modules/dashboard/Views/loadwidgets.php"; ?>
 
 <div id="dashboardpage">
@@ -39,7 +39,7 @@ if (!$dashboard['height']) $dashboard['height'] = 400;
     </div>
 </div>
 
-<div style="background-color:#ddd; padding:4px;">
+<div class="dynDiv_moveDiv dynDiv_bodyLimit" style="background-color:#ddd; padding:4px; position:fixed;z-index:1; border-radius: 15px 15px 15px 15px; width: 850px; top:80px;">
     <span id="widget-buttons"></span>
     <span id="when-selected">
         <button id="options-button" class="btn" data-toggle="modal" data-target="#widget_options"><i class="icon-wrench"></i> <?php echo _('Configure'); ?></button>
@@ -48,12 +48,12 @@ if (!$dashboard['height']) $dashboard['height'] = 400;
     <span><button id="save-dashboard" class="btn btn-success" style="float:right"><?php echo _('Not modified'); ?></button></span>
 </div>
 
-<div id="page-container" style="height:<?php echo $dashboard['height']; ?>px; background-color:#<?php echo $dashboard['backgroundcolor']; ?>; position:relative;">
+<div id="page-container" style="height:<?php echo $dashboard['height']; ?>px; background-color:#<?php echo $dashboard['backgroundcolor']; ?>; position:relative; margin-top:25px;">
     <div id="page"><?php echo $dashboard['content']; ?></div>
     <canvas id="can" width="940px" height="<?php echo $dashboard['height']; ?>px" style="position:absolute; top:0px; left:0px; margin:0; padding:0;"></canvas>
 </div>
 
-<script type="text/javascript" src="<?php echo $path; ?>Modules/dashboard/Views/js/designer.js"></script>
+<script type="text/javascript" src="<?php echo $path; ?>Modules/dashboard/Views/js/designer.js"></script> 
 <script type="application/javascript">
     var dashid = <?php echo $dashboard['id']; ?>;
     var path = "<?php echo $path; ?>";
