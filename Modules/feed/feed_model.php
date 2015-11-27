@@ -570,6 +570,122 @@ class Feed
         return $value;
     }
 
+<<<<<<< HEAD
+=======
+    public function get_data($feedid,$start,$end,$dp)
+    {
+        $feedid = (int) $feedid;
+        if ($end == 0) $end = time()*1000;
+                
+        if (!$this->exist($feedid)) return array('success'=>false, 'message'=>'Feed does not exist');
+  
+        $engine = $this->get_engine($feedid);
+        
+        // Call to engine get_data method
+        $range = ($end - $start) * 0.001;
+        if ($dp>$this->max_npoints_returned) $dp = $this->max_npoints_returned;
+        if ($dp<1) $dp = 1;
+        $outinterval = round($range / $dp);
+        return $this->engine[$engine]->get_data($feedid,$start,$end,$outinterval);
+
+    }
+
+    public function get_average($feedid,$start,$end,$outinterval)
+    {
+        $feedid = (int) $feedid;
+        if ($end == 0) $end = time()*1000;
+        
+        if (!$this->exist($feedid)) return array('success'=>false, 'message'=>'Feed does not exist');
+
+        $engine = $this->get_engine($feedid);
+
+        // Call to engine get_average method
+        if ($outinterval<1) $outinterval = 1;
+        $range = ($end - $start) * 0.001;
+        $npoints = ($range / $outinterval);
+        if ($npoints>$this->max_npoints_returned) $outinterval = round($range / $this->max_npoints_returned);
+        return $this->engine[$engine]->get_data($feedid,$start,$end,$outinterval);
+    }
+    
+    public function get_history($feedid,$start,$end,$outinterval)
+    {
+        $feedid = (int) $feedid;
+        if ($end == 0) $end = time()*1000;
+        
+        if (!$this->exist($feedid)) return array('success'=>false, 'message'=>'Feed does not exist');
+
+        $engine = $this->get_engine($feedid);
+        
+        if ($engine==Engine::PHPFINA || $engine==Engine::PHPFIWA) {
+            // Call to engine get_average method
+            if ($outinterval<1) $outinterval = 1;
+            $range = ($end - $start) * 0.001;
+            $npoints = ($range / $outinterval);
+            if ($npoints>$this->max_npoints_returned) $outinterval = round($range / $this->max_npoints_returned);
+            return $this->engine[$engine]->get_data_exact($feedid,$start,$end,$outinterval);
+        }
+        return false;
+    }
+    
+    public function csv_export($feedid,$start,$end,$outinterval)
+    {
+        $feedid = (int) $feedid;
+        if (!$this->exist($feedid)) return array('success'=>false, 'message'=>'Feed does not exist');
+
+        $engine = $this->get_engine($feedid);
+        
+        // Download limit
+        $downloadsize = (($end - $start) / $outinterval) * 17; // 17 bytes per dp
+        if ($downloadsize>($this->csvdownloadlimit_mb*1048576)) {
+            $this->log->warn("Feed model: csv download limit exeeded downloadsize=$downloadsize feedid=$feedid");
+            return false;
+        }
+
+        // Call to engine get_average method
+        return $this->engine[$engine]->csv_export($feedid,$start,$end,$outinterval);
+    }
+
+
+    public function delete($feedid)
+    {
+        $feedid = (int) $feedid;
+        if (!$this->exist($feedid)) return array('success'=>false, 'message'=>'Feed does not exist');
+
+        $engine = $this->get_engine($feedid);
+        
+        // Call to engine delete method
+        $this->engine[$engine]->delete($feedid);
+
+        $this->mysqli->query("DELETE FROM feeds WHERE `id` = '$feedid'");
+
+        if ($this->redis) {
+            $userid = $this->redis->hget("feed:$feedid",'userid');
+            $this->redis->del("feed:$feedid");
+            $this->redis->srem("user:feeds:$userid",$feedid);
+        }
+    }
+
+    public function update_user_feeds_size($userid)
+    {
+        $userid = (int) $userid;
+        $total = 0;
+        $result = $this->mysqli->query("SELECT id,engine FROM feeds WHERE `userid` = '$userid'");
+        while ($row = $result->fetch_array())
+        {
+            $size = 0;
+            $feedid = $row['id'];
+            $engine = $row['engine'];
+            
+            // Call to engine get_feed_size method
+            $size = $this->engine[$engine]->get_feed_size($feedid);
+            
+            $this->mysqli->query("UPDATE feeds SET `size` = '$size' WHERE `id`= '$feedid'");
+            if ($this->redis) $this->redis->hset("feed:$feedid",'size',$size);
+            $total += $size;
+        }
+        return $total;
+    }
+>>>>>>> refs/remotes/origin/master
 
     // MysqlTimeSeries specific functions that we need to make available to the controller
     public function mysqltimeseries_export($feedid,$start) {
@@ -626,10 +742,14 @@ class Feed
             if (!$this->redis->exists("feed:$id")) $this->load_feed_to_redis($id);
             return $this->redis->hget("feed:$id",'processList');
         } else {
+<<<<<<< HEAD
             $result = $this->mysqli->query("SELECT processList FROM feeds WHERE `id` = '$id'");
             $row = $result->fetch_array();
             if (!$row['processList']) $row['processList'] = "";
             return $row['processList'];
+=======
+            $this->mysqli->query("UPDATE feeds SET `time` = '$updatetime', `value` = '$value' WHERE `id`= '$feedid'");
+>>>>>>> refs/remotes/origin/master
         }
     }
 

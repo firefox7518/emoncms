@@ -76,5 +76,21 @@ class Multigraph
         }
         return $multigraphs;
     }
+<<<<<<< HEAD
 
+=======
+    
+    /*
+    userid not used
+    need to implement public multigraph feature, only return feedlist if multigraph is public or user session
+    */
+    public function getname($id, $userid)
+    {
+        $id = intval($id);
+        $userid = intval($userid);
+        $result = $this->mysqli->query("SELECT name FROM multigraph WHERE `id`='$id'");
+        $result = $result->fetch_array();
+        return $result['name'];
+    }
+>>>>>>> refs/remotes/origin/master
 }

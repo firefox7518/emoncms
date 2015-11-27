@@ -230,6 +230,7 @@
             var n = d.getTimezoneOffset();
             var offset = n / -60;
         
+<<<<<<< HEAD
             var datastart = Math.floor(view.start / intervalms) * intervalms;
             var dataend = Math.ceil(view.end / intervalms) * intervalms;
             datastart -= offset * 3600000;
@@ -282,6 +283,12 @@
                }
                out.push([sumtime,sum]);
                data=out;
+=======
+        if (delta==1) {
+            for (var z=1; z<data.length; z++) {
+                var val = (data[z][1] - data[z-1][1]) * scale;
+                out.push([data[z-1][0],val]);
+>>>>>>> refs/remotes/origin/master
             }
 
             else if (intervalcode=='m'){

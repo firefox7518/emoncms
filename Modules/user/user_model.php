@@ -58,12 +58,21 @@ class User
             $session['read'] = 1;
             $session['write'] = 1;
             $session['admin'] = 0;
+<<<<<<< HEAD
             $session['lang'] = "en"; // API access is always in english
             $session['username'] = "API"; // TBD
         }
         else
         {
             $result = $this->mysqli->query("SELECT id, username FROM users WHERE apikey_write='$apikey_in'");
+=======
+            $session['editmode'] = TRUE;
+            $session['lang'] = "en"; // API access is always in english
+        }
+        else
+        {
+            $result = $this->mysqli->query("SELECT id FROM users WHERE apikey_write='$apikey_in'");
+>>>>>>> refs/remotes/origin/master
             if ($result->num_rows == 1)
             {
                 $row = $result->fetch_array();
@@ -73,13 +82,20 @@ class User
                     $session['read'] = 1;
                     $session['write'] = 1;
                     $session['admin'] = 0;
+<<<<<<< HEAD
                     $session['lang'] = "en"; // API access is always in english
                     $session['username'] = $row['username'];
+=======
+                    $session['editmode'] = TRUE;
+                    $session['lang'] = "en"; // API access is always in english
+
+>>>>>>> refs/remotes/origin/master
                     if ($this->redis) $this->redis->set("writeapikey:$apikey_in",$row['id']);
                 }
             }
             else
             {
+<<<<<<< HEAD
                 $result = $this->mysqli->query("SELECT id, username FROM users WHERE apikey_read='$apikey_in'");
                 if ($result->num_rows == 1)
                 {
@@ -93,6 +109,21 @@ class User
                         $session['lang'] = "en";  // API access is always in english
                         $session['username'] = $row['username'];
                     }
+=======
+            $result = $this->mysqli->query("SELECT id FROM users WHERE apikey_read='$apikey_in'");
+            if ($result->num_rows == 1)
+            {
+                $row = $result->fetch_array();
+                if ($row['id'] != 0)
+                {
+                    //session_regenerate_id();
+                    $session['userid'] = $row['id'];
+                    $session['read'] = 1;
+                    $session['write'] = 0;
+                    $session['admin'] = 0;
+                    $session['editmode'] = TRUE;
+                    $session['lang'] = "en";  // API access is always in english
+>>>>>>> refs/remotes/origin/master
                 }
             }
         }

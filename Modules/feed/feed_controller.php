@@ -52,9 +52,15 @@ function feed_controller()
             $feedids = (array) (explode(",",(get('ids'))));
             for ($i=0; $i<count($feedids); $i++) {
                 $feedid = (int) $feedids[$i];
+<<<<<<< HEAD
                 if ($feed->exist($feedid)) { // if the feed exists
                    $result[$i] = $feed->get_value($feedid); // null is a valid response
                 } else { $result[$i] = false; } // false means feed not found
+=======
+                if ($feed->exist($feedid)) // if the feed exists
+                { $result[$i] = (float) $feed->get_value($feedid);
+                } else { $result[$i] = ""; }
+>>>>>>> refs/remotes/origin/master
             }
         } else {
             $feedid = (int) get('id');
@@ -67,6 +73,7 @@ function feed_controller()
                 // if public or belongs to user
                 if ($f['public'] || ($session['userid']>0 && $f['userid']==$session['userid'] && $session['read']))
                 {
+<<<<<<< HEAD
                     if ($route->action == "timevalue") $result = $feed->get_timevalue($feedid);
                     else if ($route->action == 'data') {
                         $skipmissing = 1;
@@ -82,6 +89,19 @@ function feed_controller()
                     else if ($route->action == 'histogram') $result = $feed->histogram_get_power_vs_kwh($feedid,get('start'),get('end'));
                     else if ($route->action == 'kwhatpower') $result = $feed->histogram_get_kwhd_atpower($feedid,get('min'),get('max'));
                     else if ($route->action == 'kwhatpowers') $result = $feed->histogram_get_kwhd_atpowers($feedid,get('points'));
+=======
+                    if ($route->action == "value") $result = $feed->get_value($feedid);
+                    if ($route->action == "timevalue") $result = $feed->get_timevalue_seconds($feedid);
+                    if ($route->action == "get") $result = $feed->get_field($feedid,get('field')); // '/[^\w\s-]/'
+                    if ($route->action == "aget") $result = $feed->get($feedid);
+
+                    if ($route->action == 'histogram') $result = $feed->histogram_get_power_vs_kwh($feedid,get('start'),get('end'));
+                    if ($route->action == 'kwhatpower') $result = $feed->histogram_get_kwhd_atpower($feedid,get('min'),get('max'));
+                    if ($route->action == 'kwhatpowers') $result = $feed->histogram_get_kwhd_atpowers($feedid,get('points'));
+                    if ($route->action == 'data') $result = $feed->get_data($feedid,get('start'),get('end'),get('dp'));
+                    if ($route->action == 'average') $result = $feed->get_average($feedid,get('start'),get('end'),get('interval'));
+                    if ($route->action == 'history') $result = $feed->get_history($feedid,get('start'),get('end'),get('interval'));
+>>>>>>> refs/remotes/origin/master
                 }
 
                 // write session required

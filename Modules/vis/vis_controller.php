@@ -132,6 +132,7 @@
     else if ($route->format == 'json' && $route->action == 'multigraph')
     {
         if ($route->subaction == 'get') $result = $multigraph->get(get('id'),$session['userid']);
+<<<<<<< HEAD
         else if ($route->subaction == 'getlist') $result = $multigraph->getlist($session['userid']);
 
         else if ($session['write']) {
@@ -140,6 +141,10 @@
             else if ($route->subaction == 'set') $result = $multigraph->set(get('id'),$session['userid'],get('feedlist'),get('name'));
         }
 
+=======
+        if ($route->subaction == 'getlist') $result = $multigraph->getlist($session['userid']);
+        if ($route->subaction == 'getname') $result = $multigraph->getname(get('id'),$session['userid']);
+>>>>>>> refs/remotes/origin/master
     }
 
     return array('content'=>$result);
